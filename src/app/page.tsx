@@ -14,7 +14,7 @@ export default async function Home() {
   // console.log(user)
   let text: string = "";
   return (
-   <div className="flex flex-col justify-center items-center">
+   <div className="flex flex-col justify-center items-center gap-6">
     <h1 className="text-6xl text-center mt-20">HOME</h1>
     <h2 className="text-3xl text-center mt-20">Welcome Back {user?.fullName}</h2>
     <Form/>

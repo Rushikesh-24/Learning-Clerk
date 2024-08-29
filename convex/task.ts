@@ -22,3 +22,25 @@ export const createTodo = mutation({
         return true;
     },
 })
+
+export const deleteById = mutation({
+  args: {
+    storageId: v.id("tasks"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.delete(args.storageId);
+  },
+});
+
+
+export const update = mutation({
+  args: {
+    storageId: v.id("tasks"),
+    isCompleted: v.boolean(),
+    text:v.string()
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.replace(args.storageId, { isCompleted: args.isCompleted , text:args.text });
+    return true;
+  },
+});
