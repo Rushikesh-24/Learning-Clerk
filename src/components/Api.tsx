@@ -7,7 +7,6 @@ const Api = ({userName}: { userName: string | null | undefined }) => {
   const tasks = useQuery(api.task.get);
   const deleteTask = useMutation(api.task.deleteById);
   const updateCompleition = useMutation(api.task.update);
-  // const { userId } = auth();
   const update = async (storageId: Id<"tasks">) => {
     const x = await deleteTask({ storageId });
   };
@@ -31,22 +30,22 @@ const Api = ({userName}: { userName: string | null | undefined }) => {
           </tr>
         </thead>
         <tbody>
-          {tasks?.reverse().map(({ _id, text, isCompleted , userName }) => (
+          {tasks?.reverse().map(({ _id, text, isCompleted , userName: taskUserName }) => (
             <tr key={_id}>
               <td className="border px-4 py-2 whitespace-nowrap">{text}</td>
               <td className="border px-4 py-2 whitespace-nowrap">
                 {isCompleted ? "Completed" : "Not completed"}
               </td>
-              <td className="border px-4 py-2 whitespace-nowrap">{userName}</td>
+              <td className="border px-4 py-2 whitespace-nowrap">{taskUserName}</td>
               <td
-                className={`${isCompleted ? "bg-green-800" : "bg-gray-400"} border px-4 py-2 cursor-pointer text-white ${userName ? "" : "disabled:opacity-50 cursor-not-allowed"}`}
+                className={`${isCompleted ? "bg-green-800" : "bg-gray-400"} border px-4 py-2 cursor-pointer text-white ${taskUserName === userName ? "" : "disabled:opacity-50 cursor-not-allowed"}`}
                 onClick={() => {
-                  if(userName){
+                  if(taskUserName){
                   updateCompleition({
                     isCompleted: !isCompleted,
                     storageId: _id,
                     text,
-                    userName: userName,
+                    userName: taskUserName,
                   })
                 }}
                 }
