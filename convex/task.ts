@@ -13,11 +13,13 @@ export const get = query({
 export const createTodo = mutation({
     args:{
         text: v.string(),
+        user:v.string()
     },
     handler:async(ctx, args)=>{
         await ctx.db.insert("tasks",{
             text:args.text,
-            isCompleted:false
+            isCompleted:false,
+            userName:args.user
         })
         return true;
     },
@@ -37,10 +39,11 @@ export const update = mutation({
   args: {
     storageId: v.id("tasks"),
     isCompleted: v.boolean(),
-    text:v.string()
+    text:v.string(),
+    userName:v.string()
   },
   handler: async (ctx, args) => {
-    await ctx.db.replace(args.storageId, { isCompleted: args.isCompleted , text:args.text });
+    await ctx.db.replace(args.storageId, { isCompleted: args.isCompleted , text:args.text , userName:args.userName});
     return true;
   },
 });

@@ -11,14 +11,14 @@ export default async function Home() {
     </div>
   }
   const user  = await currentUser()
-  // console.log(user)
+  console.log(user?.fullName)
   let text: string = "";
   return (
    <div className="flex flex-col justify-center items-center gap-6">
     <h1 className="text-6xl text-center mt-20">HOME</h1>
     <h2 className="text-3xl text-center mt-20">Welcome Back {user?.fullName}</h2>
-    <Form/>
-    <Api/>
+    <Form userName={user?.fullName}/>
+    <Api userName={user?.fullName}/>
    </div>
   );
 }
